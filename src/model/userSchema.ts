@@ -1,9 +1,17 @@
-import mongoose from '../connection';
+import { db } from '../connection';
+import { userList } from '../data/user';
 
-const userSchema = new mongoose.Schema({
-  name: String,
-  username: { type: String, require: true },
-  password: { type: String, require: true }
+
+export interface UserInterface {
+    password: string;
+    username: string;
+    name?: string;     
+};
+
+const UserSchema = new db.Schema<UserInterface>({
+    name: String,
+    username: { type: String, require: true },
+    password: { type: String, require: true }
 });
 
-export const User = mongoose.model('user', userSchema);
+export const User = db.model<UserInterface>('users', UserSchema);
