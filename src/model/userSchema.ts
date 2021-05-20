@@ -10,7 +10,7 @@ export interface UserInterface {
 
 const UserSchema = new db.Schema<UserInterface>({
     name: String,
-    username: { type: String, require: true },
+    username: { type: String, require: true, unique: true },
     password: { type: String, require: true }
 });
 
