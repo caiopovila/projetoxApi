@@ -1,17 +1,23 @@
 import { db } from '../connection';
-import { userList } from '../data/user';
+import { bc } from '../bcrypt';
 
 
 export interface UserInterface {
-    password: string;
-    username: string;
-    name?: string;     
+    _id?: db.Schema.Types.ObjectId;
+    password: String;
+    username: String;
+    name?: String;
 };
 
 const UserSchema = new db.Schema<UserInterface>({
     name: String,
     username: { type: String, require: true, unique: true },
     password: { type: String, require: true }
+});
+
+UserSchema.pre('save', async function(next) {
+    this.password = await bc.encryptPassword(this.password);
+    next();
 });
 
 export const User = db.model<UserInterface>('users', UserSchema);

@@ -1,4 +1,3 @@
-import { bc } from '../bcrypt';
 import { UserInterface } from '../model/userSchema';
 
 
@@ -7,22 +6,22 @@ export const userList = async (): Promise<UserInterface[]> => {
         {
             name: "José Serra",
             username: "serra",
-            password: await bc.encryptPassword("jose")
+            password: "jose"
         },
         {
             name: "Marta Suplice",
             username: "marta",
-            password: await bc.encryptPassword("suplice")
+            password: "suplice"
         },
         {
             name: "Luiz Inácio",
             username: "luiz",
-            password: await bc.encryptPassword("inacio")
+            password: "inacio"
         },
         {
             name: "Dilma Roussef",
             username: "dilma",
-            password: await bc.encryptPassword("roussef")
+            password: "roussef"
         } 
     ]  
 };
