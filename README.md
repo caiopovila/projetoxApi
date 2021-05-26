@@ -4,7 +4,7 @@
 
 ## Comandos
 
-    npm run built -> gerar arquivos js;
-    npm start -> iniciar o projeto;
-    npm test -> rodar o teste;
+    1º npm run built -> gerar arquivos js;
+    2º npm test -> rodar o teste (é preciso para gerar os dados no banco);
+    3º npm start -> iniciar o projeto;
 
