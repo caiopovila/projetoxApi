@@ -3,16 +3,16 @@ import { db } from '../connection';
 import { Quotation, QuotationInterface } from '../model/quotationSchema';
 
 
-export interface TenderInterface {
+export interface ProposalInterface {
     _id?: db.Schema.Types.ObjectId,
-    n_tender: Number,
+    n_proposal: Number,
     price: Number,
     payment: Number,
     user: String
 };
 
-const TenderSchema = new db.Schema<TenderInterface>({
-    n_tender: {
+const ProposalSchema = new db.Schema<ProposalInterface>({
+    n_proposal: {
         type: Number,
         require: [ true, 'Algo deu errado' ],
         unique: true
@@ -36,24 +36,24 @@ const TenderSchema = new db.Schema<TenderInterface>({
     }    
 });
 
-TenderSchema.virtual('refer_quotation_tender', {
+ProposalSchema.virtual('refer_quotation_proposal', {
     ref: 'quotations',
-    localField: 'n_tender',
+    localField: 'n_proposal',
     foreignField: 'n_quotation',
     justOne: true
 });
 
 
-TenderSchema.virtual('refer_policy_tender', {
+ProposalSchema.virtual('refer_policy_proposal', {
     ref: 'policys',
-    localField: 'n_tender',
+    localField: 'n_proposal',
     foreignField: 'n_policy',
     justOne: true
 });
 
-TenderSchema.pre('save', async function(next) {
+ProposalSchema.pre('save', async function(next) {
     this.price = this.price * 0.05;
     next();
 });
 
-export const Tender = db.model<TenderInterface>('tenders', TenderSchema);
+export const Proposal = db.model<ProposalInterface>('proposals', ProposalSchema);

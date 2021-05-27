@@ -64,18 +64,18 @@ describe("app", () => {
             console.log(ret.body);
         });
     }); 
-   it("get tender", async () => {
+   it("get proposal", async () => {
         await request(app.app)
-        .get("/tender")
+        .get("/proposal")
         .set('Authorization', 'Bearer ' + key)
         .expect(401)
         .then(ret => {
             console.log(ret.body);
         });
     }); 
-   it("post tender", async () => {
+   it("post proposal", async () => {
         await request(app.app)
-        .post("/tender")
+        .post("/proposal")
         .set('Authorization', 'Bearer ' + key)
         .expect(401)
         .send({

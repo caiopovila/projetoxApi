@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 
 import { Quotation, QuotationInterface } from '../model/quotationSchema';
-import { Tender, TenderInterface } from '../model/tenderSchema';
+import { Proposal, ProposalInterface } from '../model/proposalSchema';
 
 
-export const tenders = async (req: Request, res: Response) => {
+export const proposals = async (req: Request, res: Response) => {
     try {
-        const list: TenderInterface = await Tender.findOne({ user: req.user })
-        .populate('refer_quotation_tender')
-        .populate('refer_policy_tender')
+        const list: ProposalInterface = await Proposal.findOne({ user: req.user })
+        .populate('refer_quotation_proposal')
+        .populate('refer_policy_proposal')
         .populate({ path: 'user', select: 'name username' });
         
         res.status(!list ? 204 : 200).json(list);
@@ -17,7 +17,7 @@ export const tenders = async (req: Request, res: Response) => {
     }
 };
 
-export const newTender = async (req: Request, res: Response) => {
+export const newProposal = async (req: Request, res: Response) => {
     try {
         const quotation: QuotationInterface = await Quotation.findOne({ id_user: req.user }).exec();
         
@@ -25,13 +25,13 @@ export const newTender = async (req: Request, res: Response) => {
             return res.status(422).json({ E: 'Não há contação' });
         else {
             
-            req.body.n_tender = quotation.n_quotation;
+            req.body.n_proposal = quotation.n_quotation;
             req.body.price = quotation.value;
             req.body.user = req.user;
             
-            const newTender: any | TenderInterface = new Tender(req.body);
+            const newProposal: any | ProposalInterface = new Proposal(req.body);
             
-            newTender.save((err, result) => {
+            newProposal.save((err, result) => {
                 if (err)
                     res.status(422).json(err);
                 else

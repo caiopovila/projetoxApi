@@ -21,10 +21,10 @@ const PolicySchema = new db.Schema<PolicyInterface>({
     }
 });
 
-PolicySchema.virtual('refer_tender_policy', {
-    ref: 'tenders',
+PolicySchema.virtual('refer_proposal_policy', {
+    ref: 'proposals',
     localField: 'n_policy',
-    foreignField: 'n_tender',
+    foreignField: 'n_proposal',
     justOne: true
 });
 
