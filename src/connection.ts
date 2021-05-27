@@ -1,7 +1,10 @@
 import * as mongoose from 'mongoose';
+import { config } from 'dotenv';
 
 
-mongoose.connect('mongodb://localhost:27017/projetox', { useNewUrlParser: true, useUnifiedTopology: true });
+config();
+
+mongoose.connect(process.env.CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
 .once('open', () => {
