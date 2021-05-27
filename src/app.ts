@@ -1,5 +1,4 @@
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
 
@@ -9,8 +8,7 @@ import { verify } from './jwt';
 export const app = express();
 
 app.use(helmet());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.json({ 
@@ -31,9 +29,9 @@ app.get('/quotation', verify, controller.quotation.quotations);
 
 app.post('/quotation', verify, controller.quotation.newQuotation);
 
-app.get('/tender', verify, controller.tender.tenders);
+app.get('/proposal', verify, controller.proposal.proposals);
 
-app.post('/tender', verify, controller.tender.newTender);
+app.post('/proposal', verify, controller.proposal.newProposal);
 
 app.get('/policy', verify, controller.policy.policys);
 
